@@ -21,8 +21,11 @@ deployContracts();
 deployContractsV2();
 voteTask();
 
+const ETHERSCAN_API_KEY: string = process.env.ETHERSCAN_API_KEY || "";
 const ALCHEMY_API_KEY: string = process.env.ALCHEMY_API_KEY || "";
 const DEPLOYER_PRIVATE_KEY: string = process.env.DEPLOYER_PRIVATE_KEY || "";
+
+console.log(ALCHEMY_API_KEY, DEPLOYER_PRIVATE_KEY);
 
 const config: HardhatUserConfig = {
   networks: {
@@ -52,6 +55,11 @@ const config: HardhatUserConfig = {
       url: "http://0.0.0.0:8545",
       accounts: [DEPLOYER_PRIVATE_KEY],
     },
+  },
+  etherscan: {
+    // Your API key for Etherscan
+    // Obtain one at https://etherscan.io/
+    apiKey: ETHERSCAN_API_KEY,
   },
   solidity: {
     version: foundryConfig.profile.default.solc_version,

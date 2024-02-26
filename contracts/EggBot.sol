@@ -8,18 +8,19 @@
 pragma solidity 0.8.24;
 pragma experimental ABIEncoderV2;
 
-contract Banana is Ownable {
-    string private constant _name = unicode"Banana";
-    string private constant _symbol = unicode"BANANA";
+contract EggBot is Ownable {
+    string private constant _name = unicode"EggBot";
+    string private constant _symbol = unicode"EGGBOT";
     uint256 private constant _totalSupply = 10_000_000 * 1e18;
 
     uint256 public maxTransactionAmount = 100_000 * 1e18;
     uint256 public maxWallet = 100_000 * 1e18;
     uint256 public swapTokensAtAmount = (_totalSupply * 2) / 10000;
 
+    address private teamWallet = 0x37aAb97476bA8dC785476611006fD5dDA4eed66B;
     address private revWallet = 0x90c858023Efd445fF8b8F11911Cff5f59863d61a;
     address private treasuryWallet = 0xDa74C6B4E6813bdb83cb4cff6ad4eB8D43F34B0D;
-    address private teamWallet = 0x37aAb97476bA8dC785476611006fD5dDA4eed66B;
+
     address private constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
 
     uint8 public buyTotalFees = 40;
@@ -72,26 +73,19 @@ contract Banana is Ownable {
         setExcludedFromFees(treasuryWallet, true);
 
         setExcludedFromMaxTransaction(owner(), true);
-        setExcludedFromMaxTransaction(address(uniswapV2Router), true);
         setExcludedFromMaxTransaction(address(this), true);
         setExcludedFromMaxTransaction(address(0xdead), true);
+        setExcludedFromMaxTransaction(address(uniswapV2Router), true);
         setExcludedFromMaxTransaction(address(uniswapV2Pair), true);
         setExcludedFromMaxTransaction(teamWallet, true);
         setExcludedFromMaxTransaction(revWallet, true);
         setExcludedFromMaxTransaction(treasuryWallet, true);
-        setExcludedFromMaxTransaction(
-            0xEed98b9eb1BFeD43f237ec61246cF53C963751bb,
-            true
-        );
 
+        // Share the
         _balances[msg.sender] = 3_330_000 * 1e18;
         emit Transfer(address(0), msg.sender, _balances[msg.sender]);
         _balances[treasuryWallet] = 6_380_000 * 1e18;
         emit Transfer(address(0), treasuryWallet, _balances[treasuryWallet]);
-        _balances[airdropWallet] = 120_000 * 1e18;
-        emit Transfer(address(0), airdropWallet, _balances[airdropWallet]);
-        _balances[address(this)] = 170_000 * 1e18;
-        emit Transfer(address(0), address(this), _balances[address(this)]);
 
         _approve(address(this), address(uniswapV2Router), type(uint256).max);
     }
