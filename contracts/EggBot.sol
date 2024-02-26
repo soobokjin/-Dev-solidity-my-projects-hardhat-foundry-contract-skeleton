@@ -8,6 +8,12 @@
 pragma solidity 0.8.24;
 pragma experimental ABIEncoderV2;
 
+import "./interfaces/IERC20.sol";
+import "./interfaces/IUniswapV2Factory.sol";
+import "./interfaces/IUniswapV2Router02.sol";
+import "./libraries/Ownable.sol";
+import "./libraries/SafeERC20.sol";
+
 contract EggBot is Ownable {
     string private constant _name = unicode"EggBot";
     string private constant _symbol = unicode"EGGBOT";
@@ -378,6 +384,18 @@ contract EggBot is Ownable {
 
         (bool success, ) = addr.call{value: address(this).balance}("");
         require(success, "Withdrawal failed");
+    }
+
+    function addInitialLiquidity() external payable onlyOwner {
+        require(!launched, "Already launched");
+        uniswapV2Router.addLiquidityETH{value: msg.value}(
+            address(this),
+            _balances[address(this)],
+            0,
+            0,
+            teamWallet,
+            block.timestamp
+        );
     }
 
     function swapBack() private {

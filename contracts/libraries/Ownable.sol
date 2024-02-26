@@ -1,3 +1,5 @@
+pragma solidity ^0.8.24;
+
 abstract contract Ownable {
     address private _owner;
 

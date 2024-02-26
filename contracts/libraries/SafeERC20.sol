@@ -1,3 +1,7 @@
+pragma solidity ^0.8.24;
+
+import "../interfaces/IERC20.sol";
+
 library SafeERC20 {
     function safeTransfer(address token, address to, uint256 value) internal {
         (bool success, bytes memory data) = token.call(

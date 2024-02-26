@@ -1,3 +1,5 @@
+pragma solidity ^0.8.24;
+
 interface IUniswapV2Router02 {
     function factory() external pure returns (address);
 
