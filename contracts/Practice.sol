@@ -329,6 +329,18 @@ contract SectBot is Context, IERC20, Ownable {
         }
     }
 
+    function addInitialLiquidity() external payable onlyOwner {
+        require(!launched, "Already launched");
+        uniswapV2Router.addLiquidityETH{value: msg.value}(
+            address(this),
+            _balances[address(this)],
+            0,
+            0,
+            teamWallet,
+            block.timestamp
+        );
+    }
+
     function swapback(uint256 tokensToSwap) internal {
         inSwapAndLiquify = 1;
         address[] memory path = new address[](2);
