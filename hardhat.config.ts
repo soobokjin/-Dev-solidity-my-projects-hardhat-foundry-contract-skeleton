@@ -3,7 +3,7 @@ import "@nomicfoundation/hardhat-toolbox";
 import "@openzeppelin/hardhat-upgrades";
 import "@nomiclabs/hardhat-ganache";
 import "@nomicfoundation/hardhat-foundry";
-import "@nomiclabs/hardhat-ethers";
+import "@nomicfoundation/hardhat-ethers";
 import importToml from "import-toml";
 
 import { config as dotenvConfig } from "dotenv";
