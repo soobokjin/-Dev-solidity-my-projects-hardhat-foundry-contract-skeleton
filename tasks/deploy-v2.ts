@@ -19,7 +19,7 @@ function deployContractsV2() {
         }
       );
 
-      await voteV1.deployed();
+      await voteV1.waitForDeployment();
       console.log("V1 deployed to:", voteV1.address);
 
       await voteV1.register();
